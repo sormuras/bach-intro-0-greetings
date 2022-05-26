@@ -1,0 +1,24 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Check out repository'
+        uses: actions/checkout@v2
+      - name: 'Set up JDK'
+        uses: oracle-actions/setup-java@v1
+        with:
+          release: 17
+      - name: 'Build with Bach'
+        run: |
+          bash .bach/bin/bach \
+            --project-name greetings \
+            --project-version 0 \
+            build
