@@ -5,6 +5,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  repository_dispatch:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -16,9 +18,11 @@ jobs:
         uses: oracle-actions/setup-java@v1
         with:
           release: 17
+      - name: 'Initialize Bach'
+        run: .bach/bin/bach info
       - name: 'Build with Bach'
         run: |
-          bash .bach/bin/bach \
+          .bach/bin/bach \
             --project-name greetings \
             --project-version 0 \
             build
